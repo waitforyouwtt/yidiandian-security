@@ -1,6 +1,5 @@
 package com.yidiandian.validate;
 
-
 import java.time.LocalDateTime;
 
 /**

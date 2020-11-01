@@ -2,7 +2,7 @@ package com.yidiandian.authentication;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.yidiandian.LoginResponseType;
-import com.yidiandian.SecurityProperties;
+import com.yidiandian.properties.SecurityProperties;
 import com.yidiandian.support.SimpleResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -35,7 +35,6 @@ public class YidiandianAuthenctiationFailureHandler extends SimpleUrlAuthenticat
                                         AuthenticationException exception) throws IOException, ServletException {
 
         logger.info("登录失败");
-
         if (LoginResponseType.JSON.equals(securityProperties.getBrowser().getLoginType())) {
             response.setStatus( HttpStatus.INTERNAL_SERVER_ERROR.value());
             response.setContentType("application/json;charset=UTF-8");
@@ -43,7 +42,5 @@ public class YidiandianAuthenctiationFailureHandler extends SimpleUrlAuthenticat
         }else{
             super.onAuthenticationFailure(request, response, exception);
         }
-
-
     }
 }

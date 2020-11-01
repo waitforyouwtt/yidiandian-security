@@ -1,6 +1,6 @@
 package com.yidiandian.dao;
 
-import com.yidiandian.entity.UserInfoOperation;
+import com.yidiandian.entity.UserInfo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import java.util.List;
@@ -12,7 +12,7 @@ import java.util.List;
  * @since 2020-10-14 21:46:52
  */
 @Mapper
-public interface UserInfoOperationDao {
+public interface UserInfoDao {
 
     /**
      * 通过ID查询单条数据
@@ -20,7 +20,7 @@ public interface UserInfoOperationDao {
      * @param id 主键
      * @return 实例对象
      */
-    UserInfoOperation queryById(Integer id);
+    UserInfo queryById(Integer id);
 
     /**
      * 查询指定行数据
@@ -29,7 +29,7 @@ public interface UserInfoOperationDao {
      * @param limit 查询条数
      * @return 对象列表
      */
-    List<UserInfoOperation> queryAllByLimit(@Param("offset") int offset, @Param("limit") int limit);
+    List<UserInfo> queryAllByLimit(@Param("offset") int offset, @Param("limit") int limit);
 
 
     /**
@@ -38,7 +38,7 @@ public interface UserInfoOperationDao {
      * @param userInfo 实例对象
      * @return 对象列表
      */
-    List<UserInfoOperation> queryAll(UserInfoOperation userInfo);
+    List<UserInfo> queryAll(UserInfo userInfo);
 
     /**
      * 新增数据
@@ -46,7 +46,7 @@ public interface UserInfoOperationDao {
      * @param userInfo 实例对象
      * @return 影响行数
      */
-    int insert(UserInfoOperation userInfo);
+    int insert(UserInfo userInfo);
 
     /**
      * 修改数据
@@ -54,7 +54,7 @@ public interface UserInfoOperationDao {
      * @param userInfo 实例对象
      * @return 影响行数
      */
-    int update(UserInfoOperation userInfo);
+    int update(UserInfo userInfo);
 
     /**
      * 通过主键删除数据
@@ -64,5 +64,8 @@ public interface UserInfoOperationDao {
      */
     int deleteById(Integer id);
 
-    UserInfoOperation findUserInfoByUserName(String userName);
+    UserInfo findUserInfoByUserName(String userName);
+
+    UserInfo queryUserInfoByUserName(String userName);
+
 }

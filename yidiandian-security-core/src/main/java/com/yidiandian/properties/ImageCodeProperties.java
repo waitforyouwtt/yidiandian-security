@@ -1,4 +1,5 @@
-package com.yidiandian;
+package com.yidiandian.properties;
+
 
 /**
  * @Author: 凤凰[小哥哥]
@@ -6,7 +7,7 @@ package com.yidiandian;
  * @Version: 1.0
  * @Email: 15290810931@163.com
  */
-public class ImageCodeProperties extends SmsCodeProperties{
+public class ImageCodeProperties extends SmsCodeProperties {
 
     private int width = 67;
     private int height = 30;

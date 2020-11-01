@@ -1,10 +1,8 @@
 package com.yidiandian.authentication;
 
-
-import com.yidiandian.SecurityProperties;
-import com.yidiandian.validate.ImageCode;
+import com.yidiandian.properties.SecurityProperties;
 import com.yidiandian.validate.ValidateCode;
-import com.yidiandian.validate.ValidateCodeController;
+import com.yidiandian.controller.ValidateCodeController;
 import com.yidiandian.validate.ValidateCodeException;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.InitializingBean;
@@ -16,7 +14,6 @@ import org.springframework.web.bind.ServletRequestBindingException;
 import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.filter.OncePerRequestFilter;
-
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;

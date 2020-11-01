@@ -1,15 +1,17 @@
-package com.yidiandian.validate;
+package com.yidiandian.controller;
 
-import com.yidiandian.SecurityProperties;
-import com.yidiandian.ValidateCodeProperties;
+import com.yidiandian.properties.SecurityProperties;
 import com.yidiandian.optimization.ValidateCodeProcessor;
+import com.yidiandian.validate.ImageCode;
+import com.yidiandian.validate.SmsCodeSender;
+import com.yidiandian.validate.ValidateCode;
+import com.yidiandian.validate.ValidateCodeGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.social.connect.web.HttpSessionSessionStrategy;
 import org.springframework.social.connect.web.SessionStrategy;
 import org.springframework.web.bind.ServletRequestBindingException;
 import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.ServletWebRequest;

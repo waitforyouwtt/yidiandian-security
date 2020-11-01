@@ -1,6 +1,6 @@
 package com.yidiandian.validate;
 
-import com.yidiandian.SecurityProperties;
+import com.yidiandian.properties.SecurityProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;

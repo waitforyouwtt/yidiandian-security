@@ -1,6 +1,6 @@
 package com.yidiandian.validate;
 
-import com.yidiandian.SecurityProperties;
+import com.yidiandian.properties.SecurityProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.context.request.ServletWebRequest;

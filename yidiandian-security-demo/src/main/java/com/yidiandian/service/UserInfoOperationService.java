@@ -1,6 +1,6 @@
 package com.yidiandian.service;
 
-import com.yidiandian.entity.UserInfoOperation;
+import com.yidiandian.entity.UserInfo;
 
 /**
  * @Author: 凤凰[小哥哥]
@@ -10,6 +10,6 @@ import com.yidiandian.entity.UserInfoOperation;
  */
 public interface UserInfoOperationService {
 
-    UserInfoOperation isExists(String userName);
+    UserInfo isExists(String userName);
 
 }

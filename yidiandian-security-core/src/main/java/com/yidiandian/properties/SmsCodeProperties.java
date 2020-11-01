@@ -1,4 +1,4 @@
-package com.yidiandian;
+package com.yidiandian.properties;
 
 /**
  * @Author: 凤凰[小哥哥]

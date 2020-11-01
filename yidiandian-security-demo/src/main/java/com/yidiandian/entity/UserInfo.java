@@ -1,5 +1,6 @@
 package com.yidiandian.entity;
 
+import com.yidiandian.validator.SelfConstraint;
 import lombok.Data;
 import org.hibernate.validator.constraints.NotBlank;
 

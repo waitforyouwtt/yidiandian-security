@@ -1,7 +1,7 @@
 package com.yidiandian.validate;
 
-
-import com.yidiandian.SecurityProperties;
+import com.yidiandian.controller.ValidateCodeController;
+import com.yidiandian.properties.SecurityProperties;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
@@ -99,7 +99,7 @@ public class ValidateCodeFilter extends OncePerRequestFilter implements Initiali
         filterChain.doFilter( request, response );
     }*/
     private void validate(ServletWebRequest request) throws ServletRequestBindingException {
-      ImageCode codeInSession = (ImageCode) sessionStrategy.getAttribute( request,ValidateCodeController.SESSION_KEY+"_IMAGE" );
+      ImageCode codeInSession = (ImageCode) sessionStrategy.getAttribute( request, ValidateCodeController.SESSION_KEY+"_IMAGE" );
       String codeInRequest = ServletRequestUtils.getStringParameter(request.getRequest(),"imageCode");
       if (StringUtils.isBlank( codeInRequest )){
           throw new ValidateCodeException( "验证码的值不能为空" );

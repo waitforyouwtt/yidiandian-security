@@ -1,8 +1,7 @@
 package com.yidiandian.utils;
 
-import com.yidiandian.SecurityProperties;
+import com.yidiandian.properties.SecurityProperties;
 import com.yidiandian.validate.ImageCode;
-import com.yidiandian.validate.ValidateCode;
 import com.yidiandian.validate.ValidateCodeGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

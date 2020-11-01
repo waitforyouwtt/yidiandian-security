@@ -1,7 +1,7 @@
 package com.yidiandian.authentication;
 
 import com.yidiandian.LoginResponseType;
-import com.yidiandian.SecurityProperties;
+import com.yidiandian.properties.SecurityProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
@@ -31,15 +31,12 @@ public class YidiandianAuthenticationSuccessHandler extends SavedRequestAwareAut
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
                                         Authentication authentication) throws IOException, ServletException {
-
         logger.info("登录成功");
-
         if (LoginResponseType.JSON.equals(securityProperties.getBrowser().getLoginType())) {
             response.setContentType("application/json;charset=UTF-8");
             response.getWriter().write(objectMapper.writeValueAsString(authentication));
         } else {
             super.onAuthenticationSuccess(request, response, authentication);
         }
-
     }
 }

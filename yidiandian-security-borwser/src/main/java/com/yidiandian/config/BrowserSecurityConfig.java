@@ -1,10 +1,9 @@
-package com.yidiandian;
+package com.yidiandian.config;
 
 import com.yidiandian.authentication.SmsCodeAuthenticationSecurityConfig;
 import com.yidiandian.authentication.SmsCodeValidateFilter;
+import com.yidiandian.properties.SecurityProperties;
 import com.yidiandian.validate.ValidateCodeFilter;
-import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
-import org.apache.tomcat.util.security.MD5Encoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -45,7 +44,7 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
     private DataSource dataSource;
 
     @Autowired
-    private UserDetailsService userDetailsService;
+    private UserDetailsService selfUserInfoDetails;
 
     @Autowired
     private SmsCodeAuthenticationSecurityConfig smsCodeAuthenticationSecurityConfig;
@@ -98,7 +97,7 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
                 .rememberMe()
                 .tokenRepository( persistentTokenRepository() )
                 .tokenValiditySeconds( securityProperties.getBrowser().getRememberMeSeconds() )
-                .userDetailsService( userDetailsService )
+                .userDetailsService( selfUserInfoDetails )
                      .and()
                 .authorizeRequests()
                // .antMatchers( "/yidiandian-signIn.html" ).permitAll()

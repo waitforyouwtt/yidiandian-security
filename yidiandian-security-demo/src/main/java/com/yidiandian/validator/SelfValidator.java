@@ -1,6 +1,6 @@
 package com.yidiandian.validator;
 
-import com.yidiandian.entity.UserInfoOperation;
+import com.yidiandian.entity.UserInfo;
 import com.yidiandian.service.UserInfoOperationService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +29,7 @@ public class SelfValidator implements ConstraintValidator<SelfConstraint, Object
         log.info( "object:{}",value );
         log.info( "context:{}",context );
         String userName = (String) value;
-        UserInfoOperation userInfo = userInfoService.isExists(userName);
+        UserInfo userInfo = userInfoService.isExists(userName);
         if (userInfo == null){
             return true;
         }

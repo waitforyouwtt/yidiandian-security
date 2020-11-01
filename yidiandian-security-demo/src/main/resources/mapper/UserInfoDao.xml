@@ -127,6 +127,13 @@
         select
           id, user_id, user_name, user_nick, password, gender, head_image, phone, status, create_time, update_time
         from travel.user_info
+        where user_name = #{userName}
+    </select>
+
+    <select id="queryUserInfoByUserName" resultMap="UserInfoMap">
+        select
+          id, user_id, user_name, user_nick, password, gender, head_image, phone, status, create_time, update_time
+        from travel.user_info
         where concat(user_name,user_nick,phone) LIKE CONCAT ('%',#{userName},'%')
     </select>
 

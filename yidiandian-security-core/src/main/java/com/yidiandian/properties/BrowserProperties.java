@@ -1,4 +1,6 @@
-package com.yidiandian;
+package com.yidiandian.properties;
+
+import com.yidiandian.LoginResponseType;
 
 /**
  * @Author: 凤凰[小哥哥]

@@ -76,7 +76,6 @@ public class SmsCodeAuthenticationFilter extends AbstractAuthenticationProcessin
         authRequest.setDetails(authenticationDetailsSource.buildDetails(request));
     }
 
-
     public void setMobileParameter(String mobileParameter) {
         Assert.hasText(mobileParameter, "mobile parameter must not be empty or null");
         this.mobileParameter = mobileParameter;

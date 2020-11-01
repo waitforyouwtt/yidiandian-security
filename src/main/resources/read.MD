@@ -74,7 +74,12 @@ ValidateCodeGenerator ，ConditionalOnMissingBean(name = "codeGenerator"),如果
  ValidateCodeBeanConfig smsCodeSender 手机短信配置[手机发送验证码OK]
  
 21. 优化走一波：optimization package 代码
-22.
+22.支持手机短信：见authentication package ，需要自定义token,filter,provider,校验filter 等，还有在BrowserSecurityConfig 支持配置等。
+23.oauth 协议的四种授权模式：
+   1.授权码模式：authorization code [功能最完整，认证最严密的模式]
+   2.密码模式：resource owner password credentials
+   3.简化模式：implicit[少用]
+   4.客户端模式：client credentials[少用]
    
  
 

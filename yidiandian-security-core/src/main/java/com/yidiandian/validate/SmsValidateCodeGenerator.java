@@ -1,6 +1,6 @@
 package com.yidiandian.validate;
 
-import com.yidiandian.SecurityProperties;
+import com.yidiandian.properties.SecurityProperties;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

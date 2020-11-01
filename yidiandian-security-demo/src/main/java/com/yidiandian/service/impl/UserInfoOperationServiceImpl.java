@@ -1,11 +1,13 @@
 package com.yidiandian.service.impl;
 
-import com.yidiandian.dao.UserInfoOperationDao;
-import com.yidiandian.entity.UserInfoOperation;
+import com.yidiandian.dao.UserInfoDao;
+import com.yidiandian.entity.UserInfo;
 import com.yidiandian.service.UserInfoOperationService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
 
 /**
  * @Author: 凤凰[小哥哥]
@@ -17,11 +19,11 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class UserInfoOperationServiceImpl implements UserInfoOperationService {
 
-    @Autowired
-    UserInfoOperationDao userInfoOperationDao;
+    @Resource
+    UserInfoDao userInfoDao;
 
     @Override
-    public UserInfoOperation isExists(String userName) {
-        return userInfoOperationDao.findUserInfoByUserName(userName);
+    public UserInfo isExists(String userName) {
+        return userInfoDao.findUserInfoByUserName(userName);
     }
 }

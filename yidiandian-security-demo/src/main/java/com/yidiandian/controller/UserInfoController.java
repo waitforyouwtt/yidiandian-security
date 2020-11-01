@@ -1,7 +1,6 @@
 package com.yidiandian.controller;
 
 import com.yidiandian.entity.UserInfo;
-import com.yidiandian.entity.UserInfoOperation;
 import com.yidiandian.service.UserInfoOperationService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -14,7 +13,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
-import sun.plugin.liveconnect.SecurityContextHelper;
 
 import javax.validation.Valid;
 
@@ -33,8 +31,8 @@ public class UserInfoController {
     UserInfoOperationService userInfoOperationService;
 
     @PostMapping("/saveUser")
-    public String createUser(@Valid @RequestBody UserInfoOperation userInfo, BindingResult bindingResult){
-        UserInfoOperation exists = userInfoOperationService.isExists( userInfo.getUserName() );
+    public String createUser(@Valid @RequestBody UserInfo userInfo, BindingResult bindingResult){
+        UserInfo exists = userInfoOperationService.isExists( userInfo.getUserName() );
         if (bindingResult.hasErrors()){
             bindingResult.getAllErrors().stream().forEach( x->{
                 FieldError errorField = (FieldError) x;
@@ -53,7 +51,7 @@ public class UserInfoController {
     }
 
     @PostMapping("/queryUserInfo")
-    public String queryUserInfo(@Valid @RequestBody UserInfoOperation userInfo, BindingResult bindingResult) throws Exception {
+    public String queryUserInfo(@Valid @RequestBody UserInfo userInfo, BindingResult bindingResult) throws Exception {
         if (bindingResult.hasErrors()){
             bindingResult.getAllErrors().stream().forEach( x->{
                 FieldError errorField = (FieldError) x;

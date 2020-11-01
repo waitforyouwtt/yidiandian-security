@@ -3,7 +3,6 @@ package com.yidiandian.optimization;
 import com.yidiandian.validate.ImageCode;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.ServletWebRequest;
-
 import javax.imageio.ImageIO;
 import java.io.IOException;
 

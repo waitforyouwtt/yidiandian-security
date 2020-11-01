@@ -1,5 +1,6 @@
-package com.yidiandian;
+package com.yidiandian.config;
 
+import com.yidiandian.properties.SecurityProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
