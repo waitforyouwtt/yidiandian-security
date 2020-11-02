@@ -1,4 +1,4 @@
-package com.yidiandian;
+package com.yidiandian.properties;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
@@ -13,6 +13,7 @@ public class SecurityProperties {
 
     private BrowserProperties browser = new BrowserProperties();
     private ValidateCodeProperties code = new ValidateCodeProperties();
+    private SocialProperties socialProperties = new SocialProperties();
 
 
     public BrowserProperties getBrowser() {
@@ -29,6 +30,14 @@ public class SecurityProperties {
 
     public void setCode(ValidateCodeProperties code) {
         this.code = code;
+    }
+
+    public SocialProperties getSocialProperties() {
+        return socialProperties;
+    }
+
+    public void setSocialProperties(SocialProperties socialProperties) {
+        this.socialProperties = socialProperties;
     }
 
     @Override

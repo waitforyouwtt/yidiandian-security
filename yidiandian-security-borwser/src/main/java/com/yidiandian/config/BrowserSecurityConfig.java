@@ -17,6 +17,7 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
+import org.springframework.social.security.SpringSocialConfigurer;
 
 import javax.sql.DataSource;
 
@@ -49,6 +50,8 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private SmsCodeAuthenticationSecurityConfig smsCodeAuthenticationSecurityConfig;
 
+    @Autowired
+    private SpringSocialConfigurer socialConfigurer;
     /**
      * 密码加密解密
      * @return
@@ -93,6 +96,8 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
                      .successHandler( yidiandianAuthenticationSuccessHandler )
                      .failureHandler( yidiandianAuthenctiationFailureHandler )
         //http.httpBasic()
+                     .and()
+                     .apply( socialConfigurer )
                      .and()
                 .rememberMe()
                 .tokenRepository( persistentTokenRepository() )
