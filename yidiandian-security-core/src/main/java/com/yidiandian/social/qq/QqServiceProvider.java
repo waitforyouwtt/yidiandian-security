@@ -1,7 +1,6 @@
 package com.yidiandian.social.qq;
 
 import org.springframework.social.oauth2.AbstractOAuth2ServiceProvider;
-import org.springframework.social.oauth2.OAuth2Template;
 
 /**
  * @Author: 凤凰[小哥哥]

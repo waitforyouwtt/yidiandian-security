@@ -16,14 +16,14 @@ import org.springframework.social.connect.ConnectionFactory;
  */
 @Configuration
 //系统只有在配置过appId,providerId,appSecret,这个才生效。反之，就不生效
-@ConditionalOnProperty(prefix = "yidiandian.security.social.qq",name = "appId")
+@ConditionalOnProperty(prefix = "yidiandian.security",name = "appId")
 public class QQAutoConfig extends SocialAutoConfigurerAdapter {
 
     @Autowired
     private SecurityProperties securityProperties;
     @Override
     protected ConnectionFactory<?> createConnectionFactory() {
-        QQProperties qqProperties = securityProperties.getSocialProperties().getQqProperties();
+        QQProperties qqProperties = securityProperties.getSocialProperties().getQq();
         return new QQConnectionFactory( qqProperties.getProviderId(),qqProperties.getAppId(),qqProperties.getAppSecret() );
     }
 }

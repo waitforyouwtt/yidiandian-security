@@ -8,13 +8,23 @@ package com.yidiandian.properties;
  */
 public class SocialProperties {
 
-    private QQProperties qqProperties = new QQProperties();
+    private String filterProcessesUrl = "/auth";
 
-    public QQProperties getQqProperties() {
-        return qqProperties;
+    private QQProperties qq = new QQProperties();
+
+    public String getFilterProcessesUrl() {
+        return filterProcessesUrl;
     }
 
-    public void setQqProperties(QQProperties qqProperties) {
-        this.qqProperties = qqProperties;
+    public void setFilterProcessesUrl(String filterProcessesUrl) {
+        this.filterProcessesUrl = filterProcessesUrl;
+    }
+
+    public QQProperties getQq() {
+        return qq;
+    }
+
+    public void setQq(QQProperties qq) {
+        this.qq = qq;
     }
 }
