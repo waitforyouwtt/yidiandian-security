@@ -11,7 +11,6 @@ import org.springframework.boot.autoconfigure.social.SocialProperties;
  */
 @Data
 public class QQProperties extends SocialProperties {
-
     //服务提供商
     private String providerId = "qq";
 }
