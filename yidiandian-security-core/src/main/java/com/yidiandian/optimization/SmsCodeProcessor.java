@@ -1,5 +1,6 @@
 package com.yidiandian.optimization;
 
+import com.yidiandian.constants.SecurityConstants;
 import com.yidiandian.validate.SmsCodeSender;
 import com.yidiandian.validate.ValidateCode;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,7 @@ import java.io.IOException;
  * @Version: 1.0
  * @Email: 15290810931@163.com
  */
-@Component("smsCodeProcess")
+@Component("smsValidateCodeProcessor")
 public class SmsCodeProcessor extends AbstractValidateCodeProcessor<ValidateCode> {
     @Autowired
     private SmsCodeSender smsCodeSender;

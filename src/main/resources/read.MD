@@ -85,7 +85,49 @@ ValidateCodeGenerator ，ConditionalOnMissingBean(name = "codeGenerator"),如果
 
 
 
+ //http.formLogin()使用自定义表单进行spring security 登录，任何请求都会进行拦截
+        //http.httpBasic() 使用httpBasic进行spring security 登录,任意选择一种
+        ValidateCodeFilter validateCodeFilter = new ValidateCodeFilter();
+        validateCodeFilter.setAuthenticationFailureHandler( yidiandianAuthenctiationFailureHandler );
+        validateCodeFilter.setSecurityProperties( securityProperties );
+        validateCodeFilter.afterPropertiesSet();
 
+        SmsCodeValidateFilter smsCodeValidateFilter = new SmsCodeValidateFilter();
+        smsCodeValidateFilter.setAuthenticationFailureHandler( yidiandianAuthenctiationFailureHandler );
+        smsCodeValidateFilter.setSecurityProperties( securityProperties );
+        smsCodeValidateFilter.afterPropertiesSet();
+
+            http.addFilterBefore(smsCodeValidateFilter,UsernamePasswordAuthenticationFilter.class  )
+                .addFilterBefore( validateCodeFilter, UsernamePasswordAuthenticationFilter.class )
+                .formLogin()
+               // .loginPage( "/yidiandian-signIn.html" )
+                     .loginPage( "/authentication/require" )
+                     .loginProcessingUrl( "/security-login" )
+                     .successHandler( yidiandianAuthenticationSuccessHandler )
+                     .failureHandler( yidiandianAuthenctiationFailureHandler )
+        //http.httpBasic()
+                     .and()
+                     .apply( socialConfigurer )
+                     .and()
+                .rememberMe()
+                .tokenRepository( persistentTokenRepository() )
+                .tokenValiditySeconds( securityProperties.getBrowser().getRememberMeSeconds() )
+                .userDetailsService( selfUserInfoDetails )
+                     .and()
+                .authorizeRequests()
+               // .antMatchers( "/yidiandian-signIn.html" ).permitAll()
+                .antMatchers( "/authentication/require",
+                        securityProperties.getBrowser().getLoginPage(),
+                        /*"/code/image",
+                        "/code/sms",*/
+                        "/code/*"
+                ).permitAll()
+                .anyRequest()
+                .authenticated()
+        .and()
+        .csrf().disable()
+            .apply( smsCodeAuthenticationSecurityConfig )
+        ;
     
    
    

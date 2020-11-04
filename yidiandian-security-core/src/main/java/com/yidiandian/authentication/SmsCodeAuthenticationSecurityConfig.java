@@ -25,9 +25,9 @@ public class SmsCodeAuthenticationSecurityConfig extends SecurityConfigurerAdapt
     private AuthenticationSuccessHandler successHandler;
     @Autowired
     private AuthenticationFailureHandler failureHandler;
-
     @Autowired
     private UserDetailsService userDetails;
+
     @Override
     public void configure(HttpSecurity http) throws Exception {
         super.configure( http );
@@ -38,7 +38,6 @@ public class SmsCodeAuthenticationSecurityConfig extends SecurityConfigurerAdapt
 
         SmsCodeAuthenticationProvider provider = new SmsCodeAuthenticationProvider();
         provider.setUserDetailsService( userDetails );
-        http.authenticationProvider( provider )
-        .addFilterAfter( filter, UsernamePasswordAuthenticationFilter.class );
+        http.authenticationProvider( provider ).addFilterAfter( filter, UsernamePasswordAuthenticationFilter.class );
     }
 }

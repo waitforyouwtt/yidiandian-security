@@ -2,6 +2,7 @@ package com.yidiandian.config;
 
 import com.yidiandian.authentication.SmsCodeAuthenticationSecurityConfig;
 import com.yidiandian.authentication.SmsCodeValidateFilter;
+import com.yidiandian.constants.SecurityConstants;
 import com.yidiandian.properties.SecurityProperties;
 import com.yidiandian.validate.ValidateCodeFilter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,30 +29,23 @@ import javax.sql.DataSource;
  * @Email: 15290810931@163.com
  */
 @Configuration
-public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
+public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
 
     @Autowired
     SecurityProperties securityProperties;
     @Autowired
-    private AuthenticationSuccessHandler yidiandianAuthenticationSuccessHandler;
-
+    private ValidateCodeSecurityConfig validateCodeSecurityConfig;
     @Autowired
-    private AuthenticationFailureHandler yidiandianAuthenctiationFailureHandler;
-
+    private SmsCodeAuthenticationSecurityConfig smsCodeAuthenticationSecurityConfig;
+    @Autowired
+    private SpringSocialConfigurer socialSecurityConfig;
+    @Autowired
+    private UserDetailsService userDetailsService;
     /**
      * 取自demo 项目的application.yml
      */
     @Autowired
     private DataSource dataSource;
-
-    @Autowired
-    private UserDetailsService selfUserInfoDetails;
-
-    @Autowired
-    private SmsCodeAuthenticationSecurityConfig smsCodeAuthenticationSecurityConfig;
-
-    @Autowired
-    private SpringSocialConfigurer socialConfigurer;
     /**
      * 密码加密解密
      * @return
@@ -75,48 +69,43 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        //http.formLogin()使用自定义表单进行spring security 登录，任何请求都会进行拦截
-        //http.httpBasic() 使用httpBasic进行spring security 登录,任意选择一种
-        ValidateCodeFilter validateCodeFilter = new ValidateCodeFilter();
-        validateCodeFilter.setAuthenticationFailureHandler( yidiandianAuthenctiationFailureHandler );
-        validateCodeFilter.setSecurityProperties( securityProperties );
-        validateCodeFilter.afterPropertiesSet();
 
-        SmsCodeValidateFilter smsCodeValidateFilter = new SmsCodeValidateFilter();
-        smsCodeValidateFilter.setAuthenticationFailureHandler( yidiandianAuthenctiationFailureHandler );
-        smsCodeValidateFilter.setSecurityProperties( securityProperties );
-        smsCodeValidateFilter.afterPropertiesSet();
-
-            http.addFilterBefore(smsCodeValidateFilter,UsernamePasswordAuthenticationFilter.class  )
-                .addFilterBefore( validateCodeFilter, UsernamePasswordAuthenticationFilter.class )
-                .formLogin()
-               // .loginPage( "/yidiandian-signIn.html" )
-                     .loginPage( "/authentication/require" )
-                     .loginProcessingUrl( "/security-login" )
-                     .successHandler( yidiandianAuthenticationSuccessHandler )
-                     .failureHandler( yidiandianAuthenctiationFailureHandler )
-        //http.httpBasic()
-                     .and()
-                     .apply( socialConfigurer )
-                     .and()
+        applyPasswordAuthenticationConfig( http );
+        http.apply( validateCodeSecurityConfig )
+                .and()
+                .apply( smsCodeAuthenticationSecurityConfig )
+                .and()
+                .apply( socialSecurityConfig )
+                .and()
                 .rememberMe()
                 .tokenRepository( persistentTokenRepository() )
                 .tokenValiditySeconds( securityProperties.getBrowser().getRememberMeSeconds() )
-                .userDetailsService( selfUserInfoDetails )
-                     .and()
+                .userDetailsService( userDetailsService )
+               /* .and()
+                .sessionManagement()
+                .invalidSessionStrategy(invalidSessionStrategy)
+                .maximumSessions(securityProperties.getBrowser().getSession().getMaximumSessions())
+                .maxSessionsPreventsLogin(securityProperties.getBrowser().getSession().isMaxSessionsPreventsLogin())
+                .expiredSessionStrategy(sessionInformationExpiredStrategy)
+                .and()*/
+                .and()
                 .authorizeRequests()
-               // .antMatchers( "/yidiandian-signIn.html" ).permitAll()
-                .antMatchers( "/authentication/require",
+                .antMatchers(
+                        SecurityConstants.DEFAULT_UNAUTHENTICATION_URL,
+                        SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_MOBILE,
                         securityProperties.getBrowser().getLoginPage(),
-                        /*"/code/image",
-                        "/code/sms",*/
-                        "/code/*"
-                ).permitAll()
+                        SecurityConstants.DEFAULT_VALIDATE_CODE_URL_PREFIX+"/*",
+                       /* securityProperties.getBrowser().getSignUpUrl(),
+                        securityProperties.getBrowser().getSession().getSessionInvalidUrl()+".json",
+                        securityProperties.getBrowser().getSession().getSessionInvalidUrl()+".html",*/
+                        "/user/regist"
+                )
+                .permitAll()
                 .anyRequest()
                 .authenticated()
-        .and()
-        .csrf().disable()
-            .apply( smsCodeAuthenticationSecurityConfig )
+                .and()
+                .csrf().disable();
         ;
+
     }
 }

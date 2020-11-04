@@ -12,7 +12,7 @@ import java.io.IOException;
  * @Version: 1.0
  * @Email: 15290810931@163.com
  */
-@Component("imageCodeProcess")
+@Component("imageValidateCodeProcessor")
 public class ImageCodeProcessor extends AbstractValidateCodeProcessor<ImageCode> {
 
     @Override

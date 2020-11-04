@@ -1,17 +1,16 @@
 package com.yidiandian.controller;
 
+import com.yidiandian.constants.SecurityConstants;
 import com.yidiandian.properties.SecurityProperties;
 import com.yidiandian.optimization.ValidateCodeProcessor;
-import com.yidiandian.validate.ImageCode;
-import com.yidiandian.validate.SmsCodeSender;
-import com.yidiandian.validate.ValidateCode;
-import com.yidiandian.validate.ValidateCodeGenerator;
+import com.yidiandian.validate.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.social.connect.web.HttpSessionSessionStrategy;
 import org.springframework.social.connect.web.SessionStrategy;
 import org.springframework.web.bind.ServletRequestBindingException;
 import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.ServletWebRequest;
@@ -35,21 +34,17 @@ public class ValidateCodeController {
 
     public static final String SESSION_KEY = "SESSION_KEY_CODE";
     private SessionStrategy sessionStrategy = new HttpSessionSessionStrategy();
-
     @Autowired
     SecurityProperties securityProperties;
 
     @Autowired
-    ValidateCodeGenerator validateCodeGenerator;
-
-    @Autowired
-    ValidateCodeGenerator smsCodeGenerator;
+    private ValidateCodeProcessorHolder validateCodeProcessorHolder;
 
     @Autowired
     SmsCodeSender smsCodeSender;
 
-    @Autowired
-    private Map<String, ValidateCodeProcessor> validateCodeProcessors;
+   /* @Autowired
+    private Map<String, ValidateCodeProcessor> validateCodeProcessors;*/
 
     /**
      * 第三次优化
@@ -59,10 +54,10 @@ public class ValidateCodeController {
      * @throws IOException
      * @throws ServletRequestBindingException
      */
-   /* @GetMapping("/code/{type}")
+    @GetMapping(SecurityConstants.DEFAULT_VALIDATE_CODE_URL_PREFIX + "/{type}")
     public void createCode(HttpServletRequest request, HttpServletResponse response, @PathVariable String type) throws IOException, ServletRequestBindingException {
-        validateCodeProcessors.get( type +"CodeProcess" ).create( new ServletWebRequest( request,response ) );
-    }*/
+        validateCodeProcessorHolder.findValidateCodeProcessor(type).create(new ServletWebRequest(request, response));
+    }
 
     /**
      * 再次优化
@@ -70,7 +65,7 @@ public class ValidateCodeController {
      * @param response
      * @throws IOException
      */
-    @GetMapping("/code/image")
+    /*@GetMapping("/code/image")
     public void generateImageCode(HttpServletRequest request, HttpServletResponse response) throws IOException {
         ImageCode imageCode = (ImageCode) validateCodeGenerator.generateCode(new ServletWebRequest( request ));
         sessionStrategy.setAttribute( new ServletWebRequest( request ),SESSION_KEY+"_IMAGE",imageCode );
@@ -80,12 +75,12 @@ public class ValidateCodeController {
     @GetMapping("/code/sms")
     @ResponseBody
     public void generateSmsCode(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletRequestBindingException {
-        ValidateCode smsCode = smsCodeGenerator.generateCode(new ServletWebRequest( request ));
+        ValidateCode smsCode = validateCodeGenerator.generateCode(new ServletWebRequest( request ));
         sessionStrategy.setAttribute( new ServletWebRequest( request ),SESSION_KEY+"_SMS",smsCode );
         //请求里必须包含mobile 字段
         String mobile = ServletRequestUtils.getRequiredStringParameter( request,"mobile" );
         smsCodeSender.sendSmsCode( mobile,smsCode.getCode() );
-    }
+    }*/
 
 
     /*@GetMapping("/code/image")

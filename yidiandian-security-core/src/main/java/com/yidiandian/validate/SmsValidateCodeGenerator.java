@@ -13,7 +13,7 @@ import org.springframework.web.context.request.ServletWebRequest;
  * @Email: 15290810931@163.com
  */
 @Service
-public class SmsValidateCodeGenerator implements SmsCodeGenerator {
+public class SmsValidateCodeGenerator implements ValidateCodeGenerator {
     @Autowired
     SecurityProperties securityProperties;
 

@@ -1,4 +1,4 @@
-package com.yidiandian.optimization;
+package com.yidiandian.constants;
 
 /**
  * @Author: 凤凰[小哥哥]
@@ -6,19 +6,18 @@ package com.yidiandian.optimization;
  * @Version: 1.0
  * @Email: 15290810931@163.com
  */
-public interface SecurityConstants {
+public class SecurityConstants {
     /**
      * 默认的处理验证码的url前缀
      */
     public static final String DEFAULT_VALIDATE_CODE_URL_PREFIX = "/code";
     /**
      * 当请求需要身份认证时，默认跳转的url
-     *
-     * @see BrowserSecurityController
+     * @see
      */
     public static final String DEFAULT_UNAUTHENTICATION_URL = "/authentication/require";
     /**
-     * 默认的用户名密码登录请求处理url
+     * 用户名密码登录请求处理url
      */
     public static final String DEFAULT_LOGIN_PROCESSING_URL_FORM = "/security-login";
     /**
@@ -27,8 +26,6 @@ public interface SecurityConstants {
     public static final String DEFAULT_LOGIN_PROCESSING_URL_MOBILE = "/authentication/mobile";
     /**
      * 默认登录页面
-     *
-     * @see SecurityController
      */
     public static final String DEFAULT_LOGIN_PAGE_URL = "/yidiandian-signIn.html";
     /**

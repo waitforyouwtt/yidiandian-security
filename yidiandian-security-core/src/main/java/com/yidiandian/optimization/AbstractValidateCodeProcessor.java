@@ -25,9 +25,6 @@ public abstract class AbstractValidateCodeProcessor<C extends ValidateCode> impl
     @Autowired
     private Map<String , ValidateCodeGenerator> validateCodeGenerators;
 
-    @Autowired
-    SmsCodeGenerator smsCodeGenerators;
-
     /**v
      * 生成校验码
      *
@@ -47,19 +44,13 @@ public abstract class AbstractValidateCodeProcessor<C extends ValidateCode> impl
     }
 
     private C generate(ServletWebRequest request) {
-        String type = getValidateCodeType( request ).toString().toLowerCase();
+        String type = getValidateCodeType(request).toString().toLowerCase();
         String generatorName = type + ValidateCodeGenerator.class.getSimpleName();
-        if (type.equals( "image" )) {
-            ValidateCodeGenerator validateCodeGenerator = validateCodeGenerators.get( generatorName );
-            if (validateCodeGenerator == null) {
-                throw new ValidateCodeException( "验证码生成器" + generatorName + "不存在" );
-            }
-            return (C) validateCodeGenerator.generateCode( request );
-        }else if(type.equals( "sms" )){
-            return (C) smsCodeGenerators.generateCode( request );
-        }else{
-            throw new ValidateCodeException( "验证码生成器" + generatorName + "不存在" );
+        ValidateCodeGenerator validateCodeGenerator = validateCodeGenerators.get(generatorName);
+        if (validateCodeGenerator == null) {
+            throw new ValidateCodeException("验证码生成器" + generatorName + "不存在");
         }
+        return (C) validateCodeGenerator.generateCode(request);
     }
 
     private ValidateCodeType getValidateCodeType(ServletWebRequest request) {
