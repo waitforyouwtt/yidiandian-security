@@ -27,7 +27,7 @@
         </tr>
         <tr>
             <td>密码:</td>
-            <td><input type="password" name="password" value="123456"></td>
+            <td><input type="text" name="password" value="123456"></td>
         </tr>
         <tr>
             <td>图形验证码:</td>
@@ -71,7 +71,9 @@
 
 <h3>社交登录</h3>
 <!--请求地址规则 ：/auth 取自SocialAuthenticationFilter DEFAULT_FILTER_PROCESSES_URL  ； qq 取自QQProperties providerId-->
-<a href="/auth/qq">QQ登录</a>
+<!--<a href="/auth/qq">QQ登录</a>-->
+<a href="/qqLogin/callback.do">QQ登录</a>
+
 &nbsp;&nbsp;&nbsp;&nbsp;
 <a href="/qqLogin/weixin">微信登录</a>
 <!--

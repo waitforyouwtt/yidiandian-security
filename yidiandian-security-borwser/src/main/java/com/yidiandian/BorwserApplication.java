@@ -2,6 +2,7 @@ package com.yidiandian;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
 
 /**
  * @Author: 凤凰[小哥哥]
@@ -9,6 +10,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @Version: 1.0
  * @Email: 15290810931@163.com
  */
+@ComponentScan(basePackages = {
+                "org.springframework.security.core.userdetails",
+                "org.springframework.security.crypto.password"
+})
 @SpringBootApplication
 public class BorwserApplication {
 

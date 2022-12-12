@@ -26,18 +26,21 @@ public class SmsCodeAuthenticationSecurityConfig extends SecurityConfigurerAdapt
     @Autowired
     private AuthenticationFailureHandler failureHandler;
     @Autowired
-    private UserDetailsService userDetails;
+    private UserDetailsService userDetailsService;
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
         super.configure( http );
+
+      //  UserDetailsService userDetailsService = SpringContextHolder.getBean(UserDetailsService.class);
+
         SmsCodeAuthenticationFilter filter = new SmsCodeAuthenticationFilter();
         filter.setAuthenticationManager( http.getSharedObject( AuthenticationManager.class ) );
         filter.setAuthenticationSuccessHandler( successHandler );
         filter.setAuthenticationFailureHandler( failureHandler );
 
         SmsCodeAuthenticationProvider provider = new SmsCodeAuthenticationProvider();
-        provider.setUserDetailsService( userDetails );
+        provider.setUserDetailsService( this.userDetailsService );
         http.authenticationProvider( provider ).addFilterAfter( filter, UsernamePasswordAuthenticationFilter.class );
     }
 }

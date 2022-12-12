@@ -34,6 +34,7 @@
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
                 <version>Dalston.SR5</version>
+                <!--<version>Greenwich.SR1</version>-->
             </dependency>
             <dependency>
                 <groupId>org.projectlombok</groupId>
@@ -45,6 +46,12 @@
                 <groupId>cn.hutool</groupId>
                 <artifactId>hutool-all</artifactId>
                 <version>4.4.1</version>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-core -->
+            <dependency>
+                <groupId>org.springframework.security</groupId>
+                <artifactId>spring-security-core</artifactId>
+                <version>4.2.3.RELEASE</version>
             </dependency>
 
 

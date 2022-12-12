@@ -1,5 +1,6 @@
 package com.yidiandian.controller;
 
+import com.yidiandian.entity.User;
 import com.yidiandian.entity.UserInfo;
 import com.yidiandian.service.UserInfoOperationService;
 import io.swagger.annotations.ApiOperation;
@@ -10,10 +11,14 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.social.connect.web.ProviderSignInUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.ServletWebRequest;
 
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 /**
@@ -30,6 +35,9 @@ public class UserInfoController {
     @Autowired
     UserInfoOperationService userInfoOperationService;
 
+    @Resource
+    private ProviderSignInUtils providerSignInUtils;
+
     @PostMapping("/saveUser")
     public String createUser(@Valid @RequestBody UserInfo userInfo, BindingResult bindingResult){
         UserInfo exists = userInfoOperationService.isExists( userInfo.getUserName() );
@@ -40,6 +48,13 @@ public class UserInfoController {
             });
         }
         return "saveUser";
+    }
+
+    @PostMapping("/regist")
+    public void regist(User user, HttpServletRequest request) {
+        //不管是注册用户还是绑定用户，都会拿到一个用户唯一标识。
+        String userId = user.getUsername();
+        providerSignInUtils.doPostSignUp(userId, new ServletWebRequest(request));
     }
 
     @PostMapping("/queryByUserName")

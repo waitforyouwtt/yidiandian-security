@@ -129,7 +129,8 @@ ValidateCodeGenerator ，ConditionalOnMissingBean(name = "codeGenerator"),如果
             .apply( smsCodeAuthenticationSecurityConfig )
         ;
     
-   
+拿到qq登录信息自动登录：
+1创建AutoCreateUserConnectionSignUp类   
    
        
   

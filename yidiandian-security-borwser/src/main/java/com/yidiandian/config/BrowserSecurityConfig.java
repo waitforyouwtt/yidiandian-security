@@ -1,21 +1,15 @@
 package com.yidiandian.config;
 
 import com.yidiandian.authentication.SmsCodeAuthenticationSecurityConfig;
-import com.yidiandian.authentication.SmsCodeValidateFilter;
 import com.yidiandian.constants.SecurityConstants;
 import com.yidiandian.properties.SecurityProperties;
-import com.yidiandian.validate.ValidateCodeFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.AuthenticationFailureHandler;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 import org.springframework.social.security.SpringSocialConfigurer;
@@ -39,6 +33,7 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
     private SmsCodeAuthenticationSecurityConfig smsCodeAuthenticationSecurityConfig;
     @Autowired
     private SpringSocialConfigurer socialSecurityConfig;
+
     @Autowired
     private UserDetailsService userDetailsService;
     /**
@@ -69,6 +64,7 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        //UserDetailsService userDetailsService = SpringContextHolder.getBean(UserDetailsService.class);
 
         applyPasswordAuthenticationConfig( http );
         http.apply( validateCodeSecurityConfig )
@@ -80,7 +76,7 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
                 .rememberMe()
                 .tokenRepository( persistentTokenRepository() )
                 .tokenValiditySeconds( securityProperties.getBrowser().getRememberMeSeconds() )
-                .userDetailsService( userDetailsService )
+                .userDetailsService(userDetailsService )
                /* .and()
                 .sessionManagement()
                 .invalidSessionStrategy(invalidSessionStrategy)
@@ -95,6 +91,7 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
                         SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_MOBILE,
                         securityProperties.getBrowser().getLoginPage(),
                         SecurityConstants.DEFAULT_VALIDATE_CODE_URL_PREFIX+"/*",
+                        securityProperties.getBrowser().getSignUpUrl(),
                        /* securityProperties.getBrowser().getSignUpUrl(),
                         securityProperties.getBrowser().getSession().getSessionInvalidUrl()+".json",
                         securityProperties.getBrowser().getSession().getSessionInvalidUrl()+".html",*/
